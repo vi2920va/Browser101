@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window Load</title>
+  <script src="test.js" defer></script>
+</head>
+
+<body>
+  <script>
+    // 초기 HTML 문서를 완전히 불러오고 분석했을 때 발생.
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log("DOMContentLoaded");
+    })
+
+    // 리소스(resources, css, image)와 그것에 의존하는 리소스들의 로딩이 완료되면 실행.
+    window.addEventListener('load', () => {
+      console.log('load');
+    });
+
+    // 사용자가 현재 페이지를 떠나 다른 페이지로 이동하려 할 때 또는 창을 닫으려고 할 때 발생.
+    window.addEventListener('beforeunload', () => {
+      console.log('beforeunload');
+    });
+
+    // 사용자가 페이지를 떠날 때 발생.
+    window.addEventListener('unload', () => {
+      console.log('unload');
+    });
+  </script>
+</body>
+
+</html>
