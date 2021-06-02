@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>event - prevDefault</title>
+  <style>
+    div {
+      width: 250px;
+      height: 250px;
+      background-color: yellow;
+      margin-bottom: 5px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div>
+    <input type="checkbox" />
+  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <script>
+    document.addEventListener('wheel', event => {
+      // passive
+      // addEventListener(type,listener => {},{ passive : false})로 하면 prevDefault를 호출하지 않는다. 
+      // 하지만 기본적으로 passiver가 true로 설정된 건 true로 설정하는 것을 권장.
+      console.log('scrolling');
+      event.preventDefault();
+    });
+    const checkbox = document.querySelector('input');
+    checkbox.addEventListener('click', event => {
+      // long
+      console.log('checked');
+      // preventDefalut는 브라우저에서 발생하는 기본 동작을 중단.
+      event.preventDefault();
+    });
+  </script>
+</body>
+
+</html>
