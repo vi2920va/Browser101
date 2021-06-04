@@ -30,7 +30,6 @@
     // 이벤트 위임
     // 이벤트 위임은 하위 요소에 각각 이벤트를 붙이지 않고 상위 요소에서 하위 요소의 이벤트를 제어하는 방식.
 
-
     // Bad
     // const lis = document.querySelectorAll('li');
     // lis.forEach(li => {
@@ -42,7 +41,6 @@
     // Coooooooool 🙌
     const ul = document.querySelector('ul');
     ul.addEventListener('click', event => {
-      console.log(event.target.tagName);
       if (event.target.tagName === 'LI') {
         event.target.classList.add('selected');
       }

@@ -65,12 +65,15 @@
 
     scrollBy.addEventListener('click', () => {
       // window.scrollBy(0, 100);
+      // 100px씩 점점 스크롤 이동
       window.scrollBy({ top: 100, left: 0, behavior: 'smooth' })
     });
     scrollTo.addEventListener('click', () => {
+      // 항상 100px로 이동
       window.scrollTo(0, 100);
     });
     scrollInto.addEventListener('click', () => {
+      // class name - special 요소로 이동.
       special.scrollIntoView();
     });
   </script>

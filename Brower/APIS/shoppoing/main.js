@@ -1,5 +1,6 @@
 'use strict';
 
+const list = document.querySelector('.list');
 const items = document.querySelector('.items');
 const input = document.querySelector('.add__input');
 const addBtn = document.querySelector('.add__btn');
@@ -26,33 +27,42 @@ function onAdd() {
   input.focus();
 }
 
+let id = 0; // UUID
 function createItem(value) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item__row');
+  itemRow.setAttribute('data-id', id);
+  itemRow.innerHTML = `
+          <div class="item">
+            <span class="item__name">${value}</span>
+            <button type="button" class="item__delete">
+              <i class="fas fa-trash-alt" data-id=${id}></i>
+            </button>
+          </div>
+    `;
 
-  const item = document.createElement('div');
-  item.setAttribute('class', 'item');
+  // const item = document.createElement('div');
+  // item.setAttribute('class', 'item');
 
-  const name = document.createElement('span');
-  name.setAttribute('class', 'item__name');
-  name.innerText = value;
+  // const name = document.createElement('span');
+  // name.setAttribute('class', 'item__name');
+  // name.innerText = value;
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', 'item__delete');
-  deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
+  // const deleteBtn = document.createElement('button');
+  // deleteBtn.setAttribute('class', 'item__delete');
+  // deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
 
-  deleteBtn.addEventListener('click', e => {
-    e.preventDefault();
-    items.removeChild(itemRow);
-  });
+  // deleteBtn.addEventListener('click', e => {
+  //   e.preventDefault();
+  //   items.removeChild(itemRow);
+  // });
 
-  item.appendChild(name);
-  item.appendChild(deleteBtn);
-  itemRow.appendChild(item);
-
+  // item.appendChild(name);
+  // item.appendChild(deleteBtn);
+  // itemRow.appendChild(item);
+  id++;
   return itemRow;
 }
-
 addBtn.addEventListener('click', e => {
   e.preventDefault();
   onAdd();
@@ -61,5 +71,13 @@ addBtn.addEventListener('click', e => {
 input.addEventListener('keypress', e => {
   if (e.key === 'Enter') {
     onAdd();
+  }
+});
+
+items.addEventListener('click', event => {
+  const id = event.target.dataset.id;
+  if (id) {
+    const deleteitem = document.querySelector(`.item__row[data-id="${id}"`);
+    deleteitem.remove();
   }
 });
