@@ -1,6 +1,5 @@
 'use strict';
 
-const list = document.querySelector('.list');
 const items = document.querySelector('.items');
 const input = document.querySelector('.add__input');
 const addBtn = document.querySelector('.add__btn');

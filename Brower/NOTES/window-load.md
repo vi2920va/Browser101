@@ -68,7 +68,7 @@ HTML 모두 다 파싱(parsing) →  패칭된 JavaScript 파일 실행 → Java
 장점 : HTML 컨텐츠를 빠르게 본다는 장점이 존재.  
 단점 : 의미있는 컨텐츠가 JavaScript에 의존적이면 사용자가 기다려야 한다.
 
-## load와 관련  JavaScript 이벤트
+## load와 관련 JavaScript 이벤트
 
 ### 1. DOMContentLoaded
 
