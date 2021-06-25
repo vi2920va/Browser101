@@ -15,3 +15,4 @@ window안에는 DOM, BOM, JavaScript 객체들이 존재한다.
 
 4. document.docuementElement.clientWidth/document.documentElement.clilentHeight  
 :  수직 스크롤바를 제외한 웹 페이지 전체적인 사이즈.
+

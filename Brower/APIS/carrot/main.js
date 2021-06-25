@@ -1,5 +1,6 @@
 'use strict';
 
+const GAME_DURATION_SEC = 100;
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
@@ -31,7 +32,27 @@ function startGame() {
 }
 
 function stopGame() {}
-function startGameTimer() {}
+function startGameTimer() {
+  let remainingTimeSec = GAME_DURATION_SEC;
+  updateTimerText(remainingTimeSec);
+
+  timer = setInterval(() => {
+    if (remainingTimeSec <= 0) {
+      clearInterval(timer);
+      return;
+    }
+    updateTimerText(--remainingTimeSec);
+  }, 1000);
+}
+function updateTimerText(time) {
+  let minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+
+  const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+  const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+
+  gameTimer.innerText = `${displayMinutes}:${displaySeconds}`;
+}
 
 function showStopButton() {
   const icon = gameBtn.querySelector('.fa-play');
