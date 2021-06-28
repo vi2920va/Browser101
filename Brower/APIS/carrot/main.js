@@ -1,15 +1,19 @@
 'use strict';
 
-const GAME_DURATION_SEC = 100;
+const GAME_DURATION_SEC = 5;
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
 
 const field = document.querySelector('.game__field');
-const fieldRect = field.getBoundingClientRect();
+const fieldRet = field.getBoundingClientRect();
 const gameBtn = document.querySelector('.game__button');
 const gameTimer = document.querySelector('.game__timer');
 const gameScore = document.querySelector('.game__score');
+
+const popUp = document.querySelector('.pop-up');
+const popUpBtn = document.querySelector('.pop-up__refresh');
+const popUpMessage = document.querySelector('.pop-up__message');
 
 let started = false;
 let score = 0;
@@ -21,43 +25,46 @@ gameBtn.addEventListener('click', () => {
   } else {
     stopGame();
   }
-  started = !started;
+  // started = !started;
+});
+
+field.addEventListener('click', onFieldClick);
+
+popUpBtn.addEventListener('click', () => {
+  startGame();
+  hidePopUp();
 });
 
 function startGame() {
+  started = true;
   initGame();
   showStopButton();
   showTimerAndScore();
   startGameTimer();
 }
 
-function stopGame() {}
-function startGameTimer() {
-  let remainingTimeSec = GAME_DURATION_SEC;
-  updateTimerText(remainingTimeSec);
-
-  timer = setInterval(() => {
-    if (remainingTimeSec <= 0) {
-      clearInterval(timer);
-      return;
-    }
-    updateTimerText(--remainingTimeSec);
-  }, 1000);
+function stopGame() {
+  started = false;
+  stopGameTimer();
+  hideGameButton();
+  showPopUpWithText('REPLAY ❓');
 }
-function updateTimerText(time) {
-  let minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
 
-  const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-  const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
-
-  gameTimer.innerText = `${displayMinutes}:${displaySeconds}`;
+function finshGame(win) {
+  started = false;
+  hideGameButton();
+  stopGameTimer();
+  showPopUpWithText(win ? 'YOU WON🎉' : 'YOU LOST💩');
 }
 
 function showStopButton() {
-  const icon = gameBtn.querySelector('.fa-play');
+  let icon = gameBtn.querySelector('.fas');
   icon.classList.add('fa-stop');
   icon.classList.remove('fa-play');
+}
+
+function hideGameButton() {
+  gameBtn.style.visibility = 'hidden';
 }
 
 function showTimerAndScore() {
@@ -65,22 +72,81 @@ function showTimerAndScore() {
   gameScore.style.visibility = 'visible';
 }
 
+function startGameTimer() {
+  let remainingTimeSec = GAME_DURATION_SEC;
+  updateTimerText(remainingTimeSec);
+
+  timer = setInterval(() => {
+    if (remainingTimeSec <= 0) {
+      clearInterval(timer);
+      finshGame(CARROT_COUNT === score);
+      return;
+    }
+    updateTimerText(--remainingTimeSec);
+  }, 1000);
+}
+
+function stopGameTimer() {
+  clearInterval(timer);
+}
+
+function updateTimerText(time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = Math.floor(time % 60);
+
+  const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+  const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+
+  gameTimer.innerText = `${displayMinutes}:${displaySeconds}`;
+}
+
+function showPopUpWithText(text) {
+  popUp.classList.remove('pop-up--hide');
+  popUpMessage.innerText = text;
+}
+
+function hidePopUp() {
+  popUp.classList.add('pop-up--hide');
+}
 function initGame() {
+  score = 0;
   field.innerHTML = '';
   gameScore.innerText = CARROT_COUNT;
-  // 당근과 벌레를 생성.
   addItem('carrot', CARROT_COUNT, './img/carrot.png');
   addItem('bug', BUG_COUNT, './img/bug.png');
+}
+
+function onFieldClick(event) {
+  if (!started) {
+    return;
+  }
+
+  const target = event.target;
+
+  if (target.matches('.carrot')) {
+    target.remove();
+    score++;
+    updateScoreBoard();
+    if (score === CARROT_COUNT) {
+      finshGame(true);
+    }
+  } else if (target.matches('.bug')) {
+    stopGameTimer();
+    finshGame(false);
+  }
+}
+function updateScoreBoard() {
+  gameScore.innerText = CARROT_COUNT - score;
 }
 
 function addItem(className, count, imgPath) {
   const x1 = 0;
   const y1 = 0;
-  const x2 = fieldRect.width - CARROT_SIZE;
-  const y2 = fieldRect.height - CARROT_SIZE;
+  const x2 = fieldRet.width - CARROT_SIZE;
+  const y2 = fieldRet.height - CARROT_SIZE;
 
   for (let i = 0; i < count; i++) {
-    const item = document.createElement('img');
+    let item = document.createElement('img');
     item.setAttribute('class', className);
     item.setAttribute('src', imgPath);
     item.style.position = 'absolute';
