@@ -1,16 +1,15 @@
-
-body{
+body {
   text-align: center;
+  background: black;
 }
 
-button{
+button {
   border: 0;
   outline: 0;
   cursor: pointer;
-} 
+}
 
-
-.game{
+.game {
   display: flex;
   flex-direction: column;
   width: 800px;
@@ -20,14 +19,14 @@ button{
   background: url('img/background.png') center/cover;
 }
 
-.game__header{
+.game__header {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
 
-.game__button{
+.game__button {
   width: 60px;
   height: 60px;
   border: 4px solid black;
@@ -36,37 +35,42 @@ button{
   transition: transform 300ms ease-in;
 }
 
-.game__button:hover{
+.game__button:hover {
   transform: scale(1.1);
 }
 
-.game__timer{
+.game__timer {
   visibility: hidden;
   width: 100px;
   height: 30px;
+  line-height: 30px;
   margin-top: 8px;
   border: 4px solid black;
   border-radius: 10px;
   font-size: 32px;
   text-align: center;
   background: white;
+  user-select: none;
+  cursor: auto;
 }
 
-.game__score{
+.game__score {
   visibility: hidden;
   width: 50px;
   height: 50px;
+  line-height: 50px;
   margin-top: 8px;
   border: 3px solid black;
   border-radius: 50%;
-  font-size: 46px;
+  font-size: 38px;
   text-align: center;
-  color:white;
+  color: white;
   background: darksalmon;
+  user-select: none;
+  cursor: auto;
 }
 
-
-.game__field{
+.game__field {
   position: relative;
   width: 100%;
   height: 100%;
@@ -74,7 +78,7 @@ button{
   /* opacity: 0.4; */
 }
 
-.pop-up{
+.pop-up {
   display: block;
   width: 400px;
   height: 140px;
@@ -86,11 +90,11 @@ button{
   background: #00000090;
 }
 
-.pop-up--hide{
+.pop-up--hide {
   display: none;
 }
 
-.pop-up__refresh{
+.pop-up__refresh {
   width: 60px;
   height: 60px;
   border: 2px solid black;
@@ -99,8 +103,18 @@ button{
   background: wheat;
 }
 
-.pop-up__message{
+.pop-up__message {
   display: block;
   font-size: 38px;
   color: white;
+}
+
+.carrot,
+.bug {
+  transition: transform 100ms ease-in;
+}
+
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.1);
 }
