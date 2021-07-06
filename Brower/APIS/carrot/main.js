@@ -120,6 +120,7 @@ function showPopUpWithText(text) {
 function hidePopUp() {
   popUp.classList.add('pop-up--hide');
 }
+
 function initGame() {
   score = 0;
   field.innerHTML = '';
