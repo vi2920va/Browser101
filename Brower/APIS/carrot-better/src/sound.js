@@ -36,6 +36,5 @@ function playSound(sound) {
 }
 
 function stopSound(sound) {
-  console.log(sound);
   sound.pause();
 }
