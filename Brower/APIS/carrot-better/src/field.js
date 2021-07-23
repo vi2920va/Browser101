@@ -3,9 +3,13 @@
 import * as sound from './sound.js';
 
 const CARROT_SIZE = 80;
+export const ItemType = Object.freeze({
+  carrot: 'carrot',
+  bug: 'bug',
+});
 
 // 1. Field Class 선언
-export default class Field {
+export class Field {
   // 2. 당근과 벌레의 갯수를 받으며, 게임을 실행.
   constructor(carrotCount, bugCount) {
     this.carrotCount = carrotCount;
@@ -33,7 +37,6 @@ export default class Field {
     const y1 = 0;
     const x2 = this.fieldRet.width - CARROT_SIZE;
     const y2 = this.fieldRet.height - CARROT_SIZE;
-
     for (let i = 0; i < count; i++) {
       let item = document.createElement('img');
       item.setAttribute('class', className);
@@ -54,9 +57,9 @@ export default class Field {
     if (target.matches('.carrot')) {
       target.remove();
       sound.playCarrot();
-      this.onItemClick && this.onItemClick('carrot');
+      this.onItemClick && this.onItemClick(ItemType.carrot);
     } else if (target.matches('.bug')) {
-      this.onItemClick && this.onItemClick('bug');
+      this.onItemClick && this.onItemClick(ItemType.bug);
     }
   };
 }
